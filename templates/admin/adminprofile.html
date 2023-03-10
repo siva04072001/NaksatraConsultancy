@@ -1,0 +1,30 @@
+{% extends 'adminbasic.html' %}
+{% block content %}
+<div class="col-xl-8 col-lg-7">
+    <div class="card shadow mb-4" data-aos="fade-up">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Admin Profile</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+                <p style="color:black; text-align:justify;"> Username: {{ user.username }}</p>
+                <p style="color:black; text-align:justify;"> Email: {{ user.email }}</p>
+                <p style="color:black; text-align:justify;"> Phone number: {{ user.mobNo }}</p>
+                <p style="color:black; text-align:justify;"> Address: {{ user.address }}</p>
+                <p style="color:black; text-align:justify;"> Designation: {{ user.designation }}</p> 
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+
+set -o nounset
+
+
+celery -A helpdesk worker --loglevel=info

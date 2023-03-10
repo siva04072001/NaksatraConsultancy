@@ -1,0 +1,49 @@
+{% extends 'engineerbasic.html' %}
+{% block content %}
+<div class="row">
+
+{% for statuse in ticket %}
+{% if statuse.status == "closed" %}
+<div class="card shadow mb-4" style="margin-right: 45px; margin-left:70px;">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Tickets</h6>
+  </div>
+  <div class="card-body" >
+<div class="container">
+     <h3>status<h3>
+       
+         <h6> Ticket Id: <span style="color:#38d39f;">{{ statuse.Id }}</span> </h6>
+         <h6> Username: <span style="color:#38d39f;">{{ statuse.username }}</span> </h6>
+         <h6> Mail Id: <span style="color:#38d39f;">{{ statuse.mail }}</span> </h6>
+         <h6> Mobile No: <span style="color:#38d39f;">{{ statuse.mobileNo }}</span> </h6>
+         <h6> Queries: <span style="color:#38d39f;">{{ statuse.queries }}</span> </h6>
+         <h6> Description: <span style="color:#38d39f;">{{ statuse.Description }}</span> </h6>
+         {% if statuse.priority == 'High priority' %}
+         <h6> Priority: <span style="color:red;">{{ statuse.priority }}</span> </h6>
+         {% endif %}
+         {% if statuse.priority == 'Moderate priority' %}
+         <h6> Priority: <span style="color:orange;">{{ statuse.priority }}</span> </h6>
+         {% endif %}
+         {% if statuse.priority == 'Low priority' %}
+         <h6> Priority: <span style="color:#38d39f;">{{ statuse.priority }}</span> </h6>
+         {% endif %}
+         <h6> Status: <span style="color:red;">{{ statuse.status }}</span> </h6>
+         <h6> Assigned Date: <span style="color:#38d39f;">{{ statuse.assigned_date }}</span> </h6>
+         <h6> Due Date: <span style="color:#38d39f;">{{ statuse.due_date }}</span> </h6>
+         
+    
+    </div>
+ 
+                            
+    
+</div>
+</div>
+
+{% endif %}
+  {% endfor %}
+     
+                      
+
+       {% endblock %}
+                                
+                                  

@@ -1,0 +1,218 @@
+{% load static %}
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Service Desk</title>
+
+      <!---AOS-->
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+      <!--Chart js-->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="{% static 'imgs/SRMVEClogo.png' %}" />
+
+      <!-- Library / Plugin Css Build -->
+      <link rel="stylesheet" href="{% static 'assets/css/core/libs.min.css' %}" />
+
+
+      <!-- Hope Ui Design System Css -->
+      <link rel="stylesheet" href="{% static 'assets/css/hope-ui.min.css' %}" />
+
+      <!-- Custom Css -->
+      <link rel="stylesheet" href="{% static 'assets/css/custom.min.css' %}" />
+
+      <!-- Dark Css -->
+      <link rel="stylesheet" href="{% static 'assets/css/dark.min.css' %}"/>
+
+      <!-- Customizer Css -->
+      <link rel="stylesheet" href="{% static 'assets/css/customizer.min.css' %}" />
+
+      <!-- RTL Css -->
+      <link rel="stylesheet" href="{% static 'assets/css/rtl.min.css' %}"/>
+
+  </head>
+
+  <body class="  ">
+    <!-- loader Start -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body"></div>
+      </div>    </div>
+    <!-- loader END -->
+
+    <aside class="sidebar sidebar-default navs-rounded-all ">
+        <div class="sidebar-header d-flex align-items-center justify-content-start">
+            <a href="" class="navbar-brand">
+                <!--Logo start-->
+                <img src="{% static 'imgs/SRMVEClogo.png' %}" width="60" height="30">
+                <!--logo End-->            <h4 class="logo-title">Service Desk</h4>
+            </a>
+            <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                <i class="icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </i>
+            </div>
+        </div>
+        <div class="sidebar-body pt-0 data-scrollbar">
+            <div class="sidebar-list">
+                <!-- Sidebar Menu Start -->
+                <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
+                    <li class="nav-item static-item">
+                        <a class="nav-link static-item disabled" href="#" tabindex="-1">
+                            <span class="default-icon">Home</span>
+                            <span class="mini-icon">-</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="{% url 'employeedash' %}">
+                            <i class="icon">
+                                <svg width="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.53852 2H7.92449C9.32676 2 10.463 3.14585 10.463 4.55996V7.97452C10.463 9.38864 9.32676 10.5345 7.92449 10.5345H4.53852C3.13626 10.5345 2 9.38864 2 7.97452V4.55996C2 3.14585 3.13626 2 4.53852 2ZM4.53852 13.4655H7.92449C9.32676 13.4655 10.463 14.6114 10.463 16.0255V19.44C10.463 20.8532 9.32676 22 7.92449 22H4.53852C3.13626 22 2 20.8532 2 19.44V16.0255C2 14.6114 3.13626 13.4655 4.53852 13.4655ZM19.4615 13.4655H16.0755C14.6732 13.4655 13.537 14.6114 13.537 16.0255V19.44C13.537 20.8532 14.6732 22 16.0755 22H19.4615C20.8637 22 22 20.8532 22 19.44V16.0255C22 14.6114 20.8637 13.4655 19.4615 13.4655Z" fill="currentColor"></path>
+                                </svg>
+                            </i>
+                            <span class="item-name">DashBoard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="{% url 'employee' %}">
+                            <i class="icon">
+                                <svg width="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.4" d="M16.6667 2H7.33333C3.92889 2 2 3.92889 2 7.33333V16.6667C2 20.0622 3.92 22 7.33333 22H16.6667C20.0711 22 22 20.0622 22 16.6667V7.33333C22 3.92889 20.0711 2 16.6667 2Z" fill="currentColor"></path>                                <path d="M15.3205 12.7083H12.7495V15.257C12.7495 15.6673 12.4139 16 12 16C11.5861 16 11.2505 15.6673 11.2505 15.257V12.7083H8.67955C8.29342 12.6687 8 12.3461 8 11.9613C8 11.5765 8.29342 11.2539 8.67955 11.2143H11.2424V8.67365C11.2824 8.29088 11.6078 8 11.996 8C12.3842 8 12.7095 8.29088 12.7495 8.67365V11.2143H15.3205C15.7066 11.2539 16 11.5765 16 11.9613C16 12.3461 15.7066 12.6687 15.3205 12.7083Z" fill="currentColor"></path>
+                                </svg>
+                            </i>
+                            <span class="item-name">New Tickets</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="{% url 'employee_status' %}">
+                            <i class="icon">
+                                <svg width="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.1528 5.55559C10.2037 5.65925 10.2373 5.77027 10.2524 5.8844L10.5308 10.0243L10.669 12.1051C10.6705 12.3191 10.704 12.5317 10.7687 12.7361C10.9356 13.1326 11.3372 13.3846 11.7741 13.3671L18.4313 12.9316C18.7196 12.9269 18.998 13.0347 19.2052 13.2313C19.3779 13.3952 19.4894 13.6096 19.5246 13.8402L19.5364 13.9802C19.2609 17.795 16.4592 20.9767 12.6524 21.7981C8.84555 22.6194 4.94186 20.8844 3.06071 17.535C2.51839 16.5619 2.17965 15.4923 2.06438 14.389C2.01623 14.0624 1.99503 13.7326 2.00098 13.4026C1.99503 9.31279 4.90747 5.77702 8.98433 4.92463C9.47501 4.84822 9.95603 5.10798 10.1528 5.55559Z" fill="currentColor"></path>                                <path opacity="0.4" d="M12.8701 2.00082C17.43 2.11683 21.2624 5.39579 22.0001 9.81229L21.993 9.84488L21.9729 9.89227L21.9757 10.0224C21.9652 10.1947 21.8987 10.3605 21.784 10.4945C21.6646 10.634 21.5014 10.729 21.3217 10.7659L21.2121 10.7809L13.5313 11.2786C13.2758 11.3038 13.0214 11.2214 12.8314 11.052C12.6731 10.9107 12.5719 10.7201 12.5433 10.5147L12.0277 2.84506C12.0188 2.81913 12.0188 2.79102 12.0277 2.76508C12.0348 2.55367 12.1278 2.35384 12.2861 2.21023C12.4444 2.06662 12.6547 1.9912 12.8701 2.00082Z" fill="currentColor"></path>
+                                </svg>
+                            </i>
+                            <span class="item-name">Ticket Status</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- Sidebar Menu End -->        </div>
+
+        </div>
+        <div class="sidebar-footer"></div>
+    </aside>    <main class="main-content">
+      <div class="position-relative iq-banner">
+        <!--Nav Start-->
+        <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
+          <div class="container-fluid navbar-inner">
+            <a href="" class="navbar-brand">
+                <!--Logo start-->
+                <img src="{% static 'imgs/SRMVEClogo.png' %}" width="40" height="40">
+                <!--logo End-->        <h4 class="logo-title">Service Desk</h4>
+            </a>
+            <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                <i class="icon">
+                 <svg width="20px" height="20px" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+                </svg>
+                </i>
+            </div>
+            <div class="input-group search-input">
+              <span class="input-group-text" id="search-input">
+                <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                    <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+              <input type="search" class="form-control" placeholder="Search...">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon">
+                  <span class="mt-2 navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
+
+
+                <li class="nav-item dropdown">
+                  <a class="py-0 nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'assets/images/avatars/01.png' %}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{% static 'assets/images/avatars/avtar_1.png' %}" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{% static 'assets/images/avatars/avtar_2.png' %}" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{% static 'assets/images/avatars/avtar_4.png' %}" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{% static 'assets/images/avatars/avtar_5.png' %}" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{% static 'assets/images/avatars/avtar_3.png' %}" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded">
+                    <div class="caption ms-3 d-none d-md-block ">
+                        <h6 class="mb-0 caption-title">Hello! {{user.username}}</h6>
+                        <p class="mb-0 caption-sub-title">Employee</p>
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'empprofile' %}">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>          <!-- Nav Header Component Start -->
+
+        {% if user.is_authenticated %}
+        {% block content %}{% endblock content %}
+        {% else %}
+        <p>login here : <a href="{% url 'login' %}"></a></p>
+        {% endif %}
+
+
+    <!-- Library Bundle Script -->
+    <script src="{% static 'assets/js/core/libs.min.js' %}"></script>
+
+    <!-- External Library Bundle Script -->
+    <script src="{% static 'assets/js/core/external.min.js' %}"></script>
+
+    <!-- Widgetchart Script -->
+    <script src="{% static 'assets/js/charts/widgetcharts.js' %}"></script>
+
+    <!-- mapchart Script -->
+    <script src="{% static 'assets/js/charts/vectore-chart.js' %}"></script>
+    <script src="{% static 'assets/js/charts/dashboard.js' %}" ></script>
+
+    <!-- fslightbox Script -->
+    <script src="{% static 'assets/js/plugins/fslightbox.js' %}"></script>
+
+    <!-- Settings Script -->
+    <script src="{% static 'assets/js/plugins/setting.js' %}"></script>
+
+    <!-- Slider-tab Script -->
+    <script src="{% static 'assets/js/plugins/slider-tabs.js' %}"></script>
+
+    <!-- Form Wizard Script -->
+    <script src="{% static 'assets/js/plugins/form-wizard.js' %}"></script>
+
+    <!-- AOS Animation Plugin-->
+    <script>
+        AOS.init();
+
+      </script>
+    <!-- App Script -->
+    <script src="{% static 'assets/js/hope-ui.js' %}" defer></script>
+
+  </body>
+</html>
