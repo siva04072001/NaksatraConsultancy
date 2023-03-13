@@ -103,11 +103,15 @@
                           </div>
                           <div class="row">
                           <div class="col-md-6">
+                            
                               <div class="form-group">
                                   <label class="form-label">Department: *</label>
                                   <select name="category" class="form-select">
                                     <option value="none">Choose...</option>
-                                    <option value="Department of Computer Science and Engineering">Computer Science and Engineering</option>
+                                    {% for dep in dept %}
+                                    <option value={{dep.cat}}>{{dep.cat}}</option>
+                                    {% endfor %}
+                                    <!--<option value="Department of Computer Science and Engineering">Computer Science and Engineering</option>
                                     <option value="Department of Computer Science and Engineering">Cyber Security</option>
                                     <option value="Department of Information Technology">Department of Information Technology</option>
                                     <option value="Department of Information Technology">Artificial Intelegent and Data Science</option>
@@ -126,7 +130,7 @@
                                     <option value="Department of English">Department of English</option>
                                     <option value="Department of Placemnet">Department of Placemnet</option>
                                     <option value="Administrative Office">Administrative Office</option>
-                                    <option value="Department of Maintenance">Maintenance</option>
+                                    <option value="Department of Maintenance">Maintenance</option>-->
                                   </select>
                                   <div class="invalid-feedback">Please select any one of the Department</div>
                               </div>
@@ -136,7 +140,10 @@
                                   <label class="form-label">Location (Lab Name): *</label>
                                   <select name="location" class="form-select">
                                     <option value="none">Choose...</option>
-                                    <option value="CSE Lab1">CSE Lab1</option>
+                                    {% for lo in loc %}
+                                    <option value={{lo.loc}}>{{lo.loc}}</option>
+                                    {% endfor %}
+                                    <!--<option value="CSE Lab1">CSE Lab1</option>
                                     <option value="CSE Lab2">CSE Lab2</option>
                                     <option value="CSE Lab3">CSE Lab3</option>
                                     <option value="CSE Lab4">CSE Lab4</option>
@@ -196,7 +203,7 @@
                                     <option value="Principal Office">Principal Office</option>
                                     <option value="Admin">Admin Office</option>
                                     <option value="Maintenance">Maintenance</option>
-                                    <option value="Physical Director">Physical Director</option>
+                                    <option value="Physical Director">Physical Director</option>-->
                                   </select>
 
                               </div>
@@ -206,9 +213,12 @@
                                 <label class="form-label">Service Required: *</label>
                                 <select name="subfactory" class="form-select">
                                   <option value="none">Choose...</option>
-                                  <option value="Hardware">Hardware</option>
+                                  {% for sub1 in sub %}
+                                    <option value={{sub1.sub}}>{{sub1.sub}}</option>
+                                    {% endfor %}
+                                  <!--<option value="Hardware">Hardware</option>
                                   <option value="Software">Software</option>
-                                  <option value="Network">Network</option>
+                                  <option value="Network">Network</option>-->
                                 </select>
                             </div>
                         </div>
@@ -217,7 +227,10 @@
                               <label class="form-label">Type of Item: *</label>
                               <select name="item" class="form-select">
                                 <option value="none">Choose...</option>
-                                <option value="CPU">CPU</option>
+                                {% for itm in ite %}
+                                    <option value={{itm.ite}}>{{itm.ite}}</option>
+                                    {% endfor %}
+                                <!--<option value="CPU">CPU</option>
                                 <option value="Monitor">Monitor</option>
                                 <option value="Laser Printer">Laser Printer</option>
                                 <option value="Dot Matrix Printer">Dot Matrix Printer</option>
@@ -225,7 +238,7 @@
                                 <option value="OHP">OHP</option>
                                 <option value="Network Switch">Network Switch</option>
                                 <option value="Network Point">Network Point</option>
-                                <option value="Keyboard / Mouse">Keyboard / Mouse</option>
+                                <option value="Keyboard / Mouse">Keyboard / Mouse</option>-->
                               </select>
                           </div>
                       </div>

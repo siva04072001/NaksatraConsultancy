@@ -29,6 +29,41 @@ from celery import shared_task
 def index(request):
     return render(request, 'index.html')
 
+def registers(request):
+    msg = None
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            userId = form.cleaned_data.get('userId')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            email = form.cleaned_data.get('email')
+            designation=form.cleaned_data.get('designation')
+            msg = 'user created'
+            mydict = {'username': username,'password':password,'email':email,'designation':designation}
+
+            html_template = 'ackemail.html'
+            html_message = render_to_string(html_template, context=mydict)
+            subject = 'Welcome to Service Desk'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email]
+            message = EmailMessage(subject, html_message,
+                                   email_from, recipient_list)
+            message.content_subtype = 'html'
+            message.send()
+
+            return redirect('registers')
+    
+
+        else:
+            msg = 'form is not valid'
+        return render('superadmin/sucess.html')
+
+
+    else:
+        form = SignUpForm()
+    return render(request,'login/registers.html', {'form': form, 'msg': msg})
 
 def register(request):
     msg = None
@@ -76,16 +111,16 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None and user.is_superadmin:
+            if user is not None and user.is_superadmin and user.is_authorized=="True":
                 login(request, user)
                 return redirect('superadmin')
-            elif user is not None and user.is_admin:
+            elif user is not None and user.is_admin and user.is_authorized=="True":
                 login(request, user)
                 return redirect('admin')
-            elif user is not None and user.is_engineer:
+            elif user is not None and user.is_engineer and user.is_authorized=="True":
                 login(request, user)
                 return redirect('engineer')
-            elif user is not None and user.is_employee:
+            elif user is not None and user.is_employee and user.is_authorized=="True":
                 login(request, user)
                 return redirect('employee')
             else:
@@ -303,20 +338,70 @@ def admintable(request):
 def stats(request):
     if request.user.is_authenticated:
         if request.user.is_authenticated:
-            user = Tickets.objects.filter(assigned = 'engineer')
-            user1 = Tickets.objects.filter(assigned = 'engineer1')
-            user2 = Tickets.objects.filter(assigned = 'engineer2')
-            user3 = Tickets.objects.filter(assigned = 'engineer3')
-            usercount= user.count()
-            user1count= user1.count()
-            user2count= user2.count()
-            user3count= user3.count()
-            return render(request, 'admin/stats.html',{
-            "usercount": usercount,
-            "user1count": user1count,
-            "user2count": user2count,
-            "user3count": user3count,})
+            department=Department.objects.all()
+            location=Location.objects.all()
+            subdivision=Subdivision.objects.all()
+            item=Item.objects.all()
+            return render(request, 'admin/stats.html',{'department':department,'location':location,'subdivision':subdivision,'item':item
+            })
 
+#admin details page
+@login_required(login_url='login')
+def admindetail_ticket(request,Id):
+    eng=User.objects.all()
+    item=Tickets.objects.get(Id=Id)
+    item_list=Tickets.objects.all()
+    context={
+        'item':item,
+        'item_list':item_list,
+        'eng':eng
+    }
+    return render(request, 'admin/admin_detail.html', context)
+
+#admin details page
+@login_required(login_url='login')
+def dept(request):
+    cat=request.POST['cat']
+    department=Department.objects.all()
+    location=Location.objects.all()
+    subdivision=Subdivision.objects.all()
+    item=Item.objects.all()      
+    reg =Department(cat=cat)
+    reg.save()
+    return render(request, 'admin/stats.html',{'department':department,'location':location,'subdivision':subdivision,'item':item})
+
+@login_required(login_url='login')
+def loca(request):
+    loc=request.POST['loc']
+    department=Department.objects.all()
+    location=Location.objects.all()
+    subdivision=Subdivision.objects.all()
+    item=Item.objects.all()      
+    reg =Location(loc=loc)
+    reg.save()
+    return render(request, 'admin/stats.html',{'department':department,'location':location,'subdivision':subdivision,'item':item})
+
+@login_required(login_url='login')
+def subd(request):
+    sub=request.POST['sub']
+    department=Department.objects.all()
+    location=Location.objects.all()
+    subdivision=Subdivision.objects.all()
+    item=Item.objects.all()      
+    reg =Subdivision(sub=sub)
+    reg.save()
+    return render(request, 'admin/stats.html',{'department':department,'location':location,'subdivision':subdivision,'item':item})
+
+@login_required(login_url='login')
+def itm(request):
+    ite=request.POST['ite']
+    department=Department.objects.all()
+    location=Location.objects.all()
+    subdivision=Subdivision.objects.all()
+    item=Item.objects.all()      
+    reg =Item(ite=ite)
+    reg.save()
+    return render(request, 'admin/stats.html',{'department':department,'location':location,'subdivision':subdivision,'item':item})
 
 #admin profile page after login
 @login_required(login_url='login')
@@ -330,18 +415,28 @@ def adminprofile(request):
     else:
         return render(request, 'login/login.html', {})
 
-#employee detail
+#admin user detail1
 @login_required(login_url='login')
 def userdetail(request):
     if request.user.is_authenticated:
         if request.user.is_authenticated:
             tickets=User.objects.all()
-
+            
         return render(request, 'admin/userdetail.html',{"tickets":tickets})
 
     else:
         return render(request, 'login/login.html', {})
 
+#employee detail2
+@login_required(login_url='login')
+def admininfo_ticket(request,userId):
+    if request.user.is_authenticated:
+        if request.user.is_authenticated:
+            tickets=User.objects.get(userId=userId)
+        return render(request, 'admin/user_info.html',{"tickets":tickets})
+
+    else:
+        return render(request, 'login/login.html', {})
 
 #closed ticket section in admin page
 @login_required(login_url='login')
@@ -384,7 +479,12 @@ def engineer(request):
 def employee(request):
     if request.user.is_authenticated:
         ticket=User.objects.all()
-        return render(request,'employee/employee.html' ,{"ticket": ticket})
+        dept=Department.objects.all()
+        loc=Location.objects.all()
+        sub=Subdivision.objects.all()
+        ite=Item.objects.all()
+
+        return render(request,'employee/employee.html' ,{"ticket": ticket, "dept":dept, "loc":loc, "sub":sub, "ite":ite})
 
     else:
         return render(request, 'login/login.html', {})
@@ -402,7 +502,7 @@ def statusticket(request):
     else:
         return render(request, 'login/login.html', {})
 
-#engineer details page
+#employee details page
 @login_required(login_url='login')
 def empdetail_ticket(request,Id):
     emp=User.objects.all()
@@ -634,7 +734,60 @@ def engdetail_ticket(request,Id):
     }
     return render(request, 'engineer/engineer_detail.html', context)
 
+#admin status grant update process
+@login_required(login_url='login')
+def adminupdate_grant(request,userId):
+    tickets=User.objects.get(userId=userId)
+    tickets.is_authorized="True"
+    email=tickets.email
+    username=tickets.username
+    password=tickets.password
+    designation=tickets.designation
+    tickets.save()
+    mydict = {'username': username,'password':password, 'email':email,'designation':designation}
 
+    html_template = 'grant_email.html'
+    html_message = render_to_string(html_template, context=mydict)
+    subject = 'Welcome to Service Desk'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    message = EmailMessage(subject, html_message,email_from, recipient_list)
+    message.content_subtype = 'html'
+    message.send()
+
+    context={
+        'tickets':tickets
+
+    }
+    
+    return render(request, 'admin/userdetail.html', context)
+
+#admin status revoke update process
+@login_required(login_url='login')
+def adminupdate_revoke(request,userId):
+    tickets=User.objects.get(userId=userId)
+    tickets.is_authorized="False"
+    email=tickets.email
+    username=tickets.username
+    password=tickets.password
+    designation=tickets.designation
+    tickets.save()
+    mydict = {'username': username,'password':password, 'email':email,'designation':designation}
+
+    html_template = 'revoke_email.html'
+    html_message = render_to_string(html_template, context=mydict)
+    subject = 'Welcome to Service Desk'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    message = EmailMessage(subject, html_message,email_from, recipient_list)
+    message.content_subtype = 'html'
+    message.send()
+    context={
+        'tickets':tickets
+
+    }
+    
+    return render(request, 'admin/userdetail.html', context)
 
 #engineer update process
 @login_required(login_url='login')
@@ -674,6 +827,10 @@ def engupdate_status(request,Id):
 @login_required(login_url='login')
 def userticket(request):
     if request.user.is_authenticated:
+        dept=Department.objects.all()
+        loc=Location.objects.all()
+        sub=Subdivision.objects.all()
+        ite=Item.objects.all()
         if request.method == 'POST':
 
             username=request.user
@@ -701,10 +858,10 @@ def userticket(request):
             assigned=assigned,assigned_date=assigned_date,uploadFile=uploadFile)
             ticket.save()
             messages.success(request,'Ticket Generated Sucessfully.....')
-            return render(request, 'employee/sucess.html', {})
+            return render(request, 'employee/sucess.html', {"dept":dept,"loc":loc,"sub":sub,"ite":ite})
 
 
-        return render(request, 'employee/employee.html', {})
+        return render(request, 'employee/employee.html', {"dept":dept,"loc":loc,"sub":sub,"ite":ite})
     else:
         return render(request, 'login/login.html', {})
 

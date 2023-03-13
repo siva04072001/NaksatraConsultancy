@@ -66,7 +66,7 @@
                         {% if statuse.status != "closed" %}
                           <tr>
                             <td scope="row"> {{ statuse.Id }} </td>
-                            <td> {{ statuse.queries }} </td>
+                            <td><a href="{% url 'admindetail_ticket' statuse.Id %}">{{ statuse.queries }}</a></td>
                             <td> {{ statuse.username }} </td>
                             <td> {{ statuse.assigned }} </td>
                             <td> {{ statuse.assigned_date }} </td>

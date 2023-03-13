@@ -33,9 +33,176 @@
     </div>
 </div>          <!-- Nav Header Component End -->
 <!--Nav End-->
+
 </div>
-<h3 data-aos="fade-up" data-aos-delay="700">Under Development!</h3>
-      </div>    
+
+<div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+            <div class="card-header">
+              <div class="header-title">
+                 <h4 class="card-title">Configure</h4>
+              </div>
+           </div>
+           <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'dept' %}">
+              {% csrf_token %}
+                
+                      <div class="form-group">
+                         <h6 for="email" class="card-title">Department</h6>
+                         <input type="text" value="{{cat}}" name="cat" placeholder="enter department...">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Add</button>
+                   
+             </form>
+            </div>
+            <div class="col-lg-6">
+              <form method="POST" enctype="multipart/form-data" action="{% url 'loca' %}">
+                {% csrf_token %}
+                  
+                        <div class="form-group">
+                           <h6 for="email" class="card-title">Location</h6>
+                           <input type="text" value="{{loc}}" name="loc" placeholder="enter place...">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                     
+               </form>
+              </div>
+         </div>
+         <br>
+         <div class="row">
+          <div class="col-lg-6">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'subd' %}">
+          {% csrf_token %}
+            
+                  <div class="form-group">
+                     <h6 for="email" class="card-title">Subdivision</h6>
+                     <input type="text" value="{{sub}}" name="sub" placeholder="enter subdivisions...">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Add</button>
+               
+         </form>
+        </div>
+        <div class="col-lg-6">
+          <form method="POST" enctype="multipart/form-data" action="{% url 'itm' %}">
+            {% csrf_token %}
+              
+                    <div class="form-group">
+                       <h6 for="email" class="card-title">Item</h6>
+                       <input type="text" value="{{ite}}" name="ite" placeholder="enter items...">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                 
+           </form>
+          </div>
+     </div>
+           </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+           <div class="card">
+             <div class="card-header">
+                <div class="header-title">
+                   <h5 class="card-title">List of Departments</h5>
+                </div>
+             </div>
+             <div class="card-body">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Departments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for dept in department %}
+                  <tr>
+                    <td>{{dept.cat}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+             </div>
+           </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+               <div class="header-title">
+                  <h5 class="card-title">List of Locations</h5>
+               </div>
+            </div>
+            <div class="card-body">
+             <table class="table">
+               <thead class="thead-dark">
+                 <tr>
+                   <th scope="col">Locations</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                  {% for loca in location %}
+                   <td>{{ loca.loc }}</td>
+                 </tr>
+                 {% endfor %}
+               </tbody>
+             </table>
+            </div>
+          </div>
+       </div>
+       <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+             <div class="header-title">
+                <h5 class="card-title">List of Subdivisions</h5>
+             </div>
+          </div>
+          <div class="card-body">
+           <table class="table">
+             <thead class="thead-dark">
+               <tr>
+                 <th scope="col">Subdivisions</th>
+               </tr>
+             </thead>
+             <tbody>
+              {% for subd in subdivision %}
+               <tr>
+                 <td>{{ subd.sub }}</td>
+               </tr>
+               {% endfor %}
+             </tbody>
+           </table>
+          </div>
+        </div>
+     </div><div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+           <div class="header-title">
+              <h5 class="card-title">List of Items</h5>
+           </div>
+        </div>
+        <div class="card-body">
+         <table class="table">
+           <thead class="thead-dark">
+             <tr>
+               <th scope="col">Items</th>
+             </tr>
+           </thead>
+           <tbody>
+            {% for it in item %}
+             <tr>
+               <td>{{ it.ite }}</td>
+             </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+        </div>
+      </div>
+   </div>
+
+         
 <!-- Footer Section End -->    </main>
 <a class="btn btn-fixed-end btn-warning btn-icon btn-setting" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" role="button" aria-controls="offcanvasExample">
    <svg width="24" viewBox="0 0 24 24" class="animated-rotate" fill="none" xmlns="http://www.w3.org/2000/svg">

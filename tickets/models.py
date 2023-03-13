@@ -18,7 +18,7 @@ class User(AbstractUser):
     last_login = models.DateTimeField(null=True)
     
 
-
+    is_authorized=models.CharField(max_length=100, default="False")
     is_superadmin=models.BooleanField('is superadmin', default=False)
     is_admin=models.BooleanField('is admin', default=False)
     is_engineer=models.BooleanField('is engineer', default=False)
@@ -51,3 +51,22 @@ class Tickets(models.Model):
 
     def __str__(self):
         return self.queries
+
+class Department(models.Model):
+    cat=models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.cat
+
+class Location(models.Model):
+    loc=models.CharField(max_length=100, blank=True, null=True) 
+    def __str__(self):
+        return self.loc
+    
+class Subdivision(models.Model):
+    sub=models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.sub
+class Item(models.Model):
+    ite=models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.ite
